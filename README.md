@@ -63,4 +63,4 @@ source("./Code/PlotModels.R")
 Note that it may be a good idea to restart the R session after running each script.
 
 ## Output
-All output is saved to the `./Output/` folder. Figures are saved to `./Output/Figures/`. Intermediate/tempporary files are saved to `./Output/TempFiles/`. 
+All output is saved to the `./Output/` folder. Figures are saved to `./Output/Figures/`. Intermediate/temporary files are saved to `./Output/TempFiles/`. 
