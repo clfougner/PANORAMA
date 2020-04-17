@@ -3,7 +3,7 @@
 ##################################################
 
 ## Set the working directory
-setwd("/open/tmp/Christian/GeneExpressionModulation/")
+setwd("/path/to/PANORAMA/")
 
 ##################################################
 ## Load/install libraries

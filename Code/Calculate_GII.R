@@ -2,6 +2,9 @@
 # Calculate genomic instability index in each tumor type
 ##################################################
 
+## Set the working directory
+setwd("/path/to/PAMORAMA/")
+
 ##################################################
 ## Load data
 # Read ploidy data

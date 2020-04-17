@@ -2,7 +2,7 @@
 ## Entire pipeline
 ##################################################
 
-# First, set the working directory to /path/to/GeneExpressionModulation/
+# First, set the working directory to /path/to/PANORAMA/
 
 # 1) Get an overview of the available data for each data type in the TCGA cohort
 source("./Code/SampleOverview.R")

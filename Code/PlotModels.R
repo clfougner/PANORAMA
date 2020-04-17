@@ -3,7 +3,7 @@
 ##################################################
 
 ## Set the working directory
-setwd("/open/tmp/Christian/GeneExpressionModulation/")
+setwd("/path/to/PANORAMA/")
 
 ##################################################
 ## Load libraries
@@ -1268,6 +1268,9 @@ dev.off()
 
 # Fit linear model
 fit <- lm(longDF$AvgMeth ~ longDF$VarMeth)
+
+# Is the significant association above purely due to TGCT?
+print(summary(lm(longDF$AvgMeth[!rownames(longDF) == "TGCT"] ~ longDF$VarMeth[!rownames(longDF) == "TGCT"])))
 
 # Predict data
 sef <- predict(fit, se.fit = TRUE, interval = "confidence")
