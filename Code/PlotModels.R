@@ -1264,6 +1264,101 @@ dev.off()
 
 
 ##################################################
+## Mean CN variance vs. expression variance scatterplot
+
+# Fit linear model
+fit <- lm(longDF$VarExpr ~ longDF$VarCNA)
+
+# Predict data
+sef <- predict(fit, se.fit = TRUE, interval = "confidence")
+
+# Make data frame with predicted values and 95% confidence interval
+d <- cbind(pred = sef$fit[, "fit"],
+           se_up = sef$fit[, "lwr"],
+           se_dn = sef$fit[, "upr"],
+           vals = longDF$VarCNA)
+
+# Order data
+d <- d[order(d[, "vals"]), ]
+
+# Start figure
+pdf(file = paste0("./Output/Figures/Expression-variance_vs_CNA-variance_",
+                  w_BP_short,
+                  "kWindow.pdf"),
+    width = 4,
+    height = 3,
+    pointsize = 8,
+    useDingbats = FALSE)
+
+# Set plotting parameters
+par(mar = c(4, 5, 4, 9))
+
+# Set color palette
+palette(cols)
+
+# Make plot
+plot(longDF$VarExpr ~ longDF$VarCNA,
+     bg = longDF$TumorType,
+     col = "black",
+     pch = pointTypes,
+     ylim = c(0.8, 2.0),
+     xlim = c(0, 0.4),
+     cex = 1.5,
+     bty = "L",
+     xlab = "Mean CN variance",
+     main = "Expression variance ~ Copy number variance",
+     font.main = 1,
+     ylab = "Mean expression variance")
+
+# Add 95% confidence interval
+polygon(x = c(d[, "vals"],
+              d[order(d[, "vals"], decreasing = TRUE), "vals"]),
+        y = c(d[, "se_up"],
+              d[order(d[, "vals"], decreasing = TRUE), "se_dn"]),
+        col = adjustcolor("black", alpha.f = 0.15),
+        border = NA)
+
+# Add predicted line
+lines(pred ~ vals,
+      data = d,
+      lwd = 2,
+      col = "black")
+
+## Rsq annotation
+# Get Rsq value
+rsq <- round(summary(fit)$r.squared, 2)
+
+# Add annotation
+text(x = 0.05, y = 2, pos = 4, labels = bquote(italic(R^2)==.(rsq)))
+
+
+## P-value annotation
+# If P less than 0.001 
+if(lmp(fit) < 0.001){p <- " < 0.001"}
+
+# If P greater than 0.001
+if(!lmp(fit) < 0.001){p <- paste0(" = ", round(lmp(fit), 3))}
+
+# Add annotation
+text(x = 0.05, y = 1.9, pos = 4, labels = bquote(italic(P)~.(p)))
+
+
+# Add legend
+legend("right",
+       inset = c(-0.5, 0),
+       xpd = TRUE,
+       pch = pointTypes,
+       legend = levels(longDF$TumorType),
+       pt.bg = cols,
+       col = "black",
+       horiz = FALSE,
+       ncol = 2)
+
+# End figure
+dev.off()
+
+
+##################################################
 ## Meth mean Rsq_adj vs. meth variance scatterplot
 
 # Fit linear model
@@ -1424,6 +1519,100 @@ pdf(file = paste0("./Output/Figures/MethMeanRsqAdj_vs_expression-variance_",
          col = "black",
          horiz = FALSE,
          ncol = 2)
+
+# End figure
+dev.off()
+
+##################################################
+## Mean meth variance vs. mean expression variance scatterplot
+
+# Fit linear model
+fit <- lm(longDF$VarExpr ~ longDF$VarMeth)
+
+# Predict data
+sef <- predict(fit, se.fit = TRUE, interval = "confidence")
+
+# Make data frame with predicted values and 95% confidence interval
+d <- cbind(pred = sef$fit[, "fit"],
+           se_up = sef$fit[, "lwr"],
+           se_dn = sef$fit[, "upr"],
+           vals = longDF$VarMeth)
+
+# Order data
+d <- d[order(d[, "vals"]), ]
+
+# Start figure
+pdf(file = paste0("./Output/Figures/Expr-variance_vs_Meth-variance_",
+                  w_BP_short,
+                  "kWindow.pdf"),
+    width = 4,
+    height = 3,
+    pointsize = 8,
+    useDingbats = FALSE)
+
+# Set plotting parameters
+par(mar = c(4, 5, 4, 9))
+
+# Set color palette
+palette(cols)
+
+# Make plot
+plot(longDF$VarExpr ~ longDF$VarMeth,
+     bg = longDF$TumorType,
+     col = "black",
+     pch = pointTypes,
+     ylim = c(0.8, 2.0),
+     xlim = c(0.04, 0.2),
+     cex = 1.5,
+     bty = "L",
+     xlab = "Mean MethSig variance",
+     main = "Expression variance ~ MethSig variance",
+     font.main = 1,
+     ylab = "Mean expression variance")
+
+# Add 95% confidence interval
+polygon(x = c(d[, "vals"],
+              d[order(d[, "vals"], decreasing = TRUE), "vals"]),
+        y = c(d[, "se_up"],
+              d[order(d[, "vals"], decreasing = TRUE), "se_dn"]),
+        col = adjustcolor("black", alpha.f = 0.15),
+        border = NA)
+
+# Add predicted line
+lines(pred ~ vals,
+      data = d,
+      lwd = 2,
+      col = "black")
+
+## Rsq annotation
+# Get Rsq value
+rsq <- round(summary(fit)$r.squared, 2)
+
+# Add annotation
+text(x = 0.06, y = 2.0, pos = 4, labels = bquote(italic(R^2)==.(rsq)))
+
+
+## P-value annotation
+# If P less than 0.001 
+if(lmp(fit) < 0.001){p <- " < 0.001"}
+
+# If P greater than 0.001
+if(!lmp(fit) < 0.001){p <- paste0(" = ", round(lmp(fit), 3))}
+
+# Add annotation
+text(x = 0.06, y = 1.9, pos = 4, labels = bquote(italic(P)~.(p)))
+
+
+# Add legend  
+legend("right",
+       inset = c(-0.5, 0),
+       xpd = TRUE,
+       pch = pointTypes,
+       legend = levels(longDF$TumorType),
+       pt.bg = cols,
+       col = "black",
+       horiz = FALSE,
+       ncol = 2)
 
 # End figure
 dev.off()
