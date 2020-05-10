@@ -1,6 +1,6 @@
 # A pan-cancer atlas of transcriptional dependence on DNA methylation and copy number aberrations
 
-Fougner, C., Höglander, E.K., Lien, T.G., Sørlie, T.S., Nord, S. & Lingjærde, O.C. A pan-cancer atlas of transcriptional dependence on DNA methylation and copy number aberrations. _bioRxiv_ bioRxiv 2020.05.04.076901 (2020). doi: [10.1101/2020.05.04.076901](https://www.biorxiv.org/content/10.1101/2020.05.04.076901v1.full).
+Fougner, C., Höglander, E.K., Lien, T.G., Sørlie, T.S., Nord, S. & Lingjærde, O.C. A pan-cancer atlas of transcriptional dependence on DNA methylation and copy number aberrations. _bioRxiv_ 2020.05.04.076901 (2020). doi:[10.1101/2020.05.04.076901](https://www.biorxiv.org/content/10.1101/2020.05.04.076901v1.full).
 
 ## Data
 The [TCGA pan-cancer cohort](https://www.cell.com/pb-assets/consortium/pancanceratlas/pancani3/index.html) is used in this study. To download the necessary data, first install the [GDC data transfer tool](https://gdc.cancer.gov/access-data/gdc-data-transfer-tool). Once installed, clone this repository and set the path to `/path/to/GeneExpressionModulation/` and run the following to download:
